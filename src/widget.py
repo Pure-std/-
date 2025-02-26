@@ -13,13 +13,18 @@ def mask_account_card(card: str) -> str:
 
     """
 
-    card_type = card[:-16]
-    number = card[14:]
+    card_components = card.split()
+    if len(card_components) == 1:
+        return card_components[0]
+    elif len(card_components) == 0:
+        return ""
+    card_type = " ".join(card_components[:-1])
+    number = card_components[-1]
 
     if card_type == "Счёт" or card_type == "Счет":
-        return get_mask_account(number)
+        return f"{card_type} {get_mask_account(number)}"
     else:
-        return get_mask_card_number(number)
+        return f"{card_type} {get_mask_card_number(number)}"
 
 
 def get_date(date: str) -> str:
@@ -30,4 +35,4 @@ def get_date(date: str) -> str:
 
     """
 
-    return f"{date[:4]}.{date[5:7]}.{date[8:10]}"
+    return f"{date[8:10]}.{date[5:7]}.{date[:4]}"
