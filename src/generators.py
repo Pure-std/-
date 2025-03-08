@@ -21,7 +21,7 @@ def transaction_descriptions(transactions: list) -> Iterator:
 def card_number_generator(minimal: int, maximal: int) -> Iterator:
     """
     Генерирует номера банковских карт в формате XXXX XXXX XXXX XXXX
-    в диапазоне от 0000 0000 0000 0000 до 9999 9999 9999.
+    в диапазоне от 0000 0000 0000 0000 до 9999 9999 9999 99999.
     """
     num = minimal
     while num <= maximal:
