@@ -1,10 +1,13 @@
 from typing import Iterator
 
+
 def filters_by_currency(transactions: list, currency: str) -> Iterator:
     """
     Возвращает итератор, который выдает транзакции, отфильтрованные по заданной валюте.
     """
-    return iter(transaction for transaction in transactions if transaction["operationAmount"]["currency"]["code"] == currency)
+    return iter(
+        transaction for transaction in transactions if transaction["operationAmount"]["currency"]["code"] == currency
+    )
 
 
 def transaction_descriptions(transactions: list) -> Iterator:
@@ -13,6 +16,7 @@ def transaction_descriptions(transactions: list) -> Iterator:
     """
     for transaction in transactions:
         yield transaction.get("description")
+
 
 def card_number_generator(minimal: int, maximal: int) -> Iterator:
     """
