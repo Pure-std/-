@@ -6,7 +6,7 @@ logger = logging.getLogger("masks.py")
 # Основная конфигурация logging
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    filename=filedir.parent / f"logs/{__name__}.log",  # Запись логов в файл
+                    filename=filedir.parent / "logs/masks.py.log",  # Запись логов в файл
                     filemode='w')  # Перезапись файла при каждом запуске
 
 
