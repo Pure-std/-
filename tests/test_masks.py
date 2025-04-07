@@ -1,3 +1,5 @@
+from typing import Any
+
 import pytest
 
 from src.masks import get_mask_account, get_mask_card_number
@@ -13,27 +15,49 @@ from src.masks import get_mask_account, get_mask_card_number
         ("123", "123"),
     ],
 )
-def test_get_mask_card_number(card_number: str, expected: str) -> None:
+def test_get_mask_card_number_valid(card_number: str, expected: str) -> None:
     result = get_mask_card_number(card_number)
     assert result == expected
 
 
-def test_get_mask_card_number_with_fixture(card_number_data: list) -> None:
-    for card_number, expected in card_number_data:
-        result = get_mask_card_number(card_number)
-        assert result == expected
+@pytest.mark.parametrize(
+    "invalid_input, expected",
+    [
+        (1234567890123456, ""),
+        (None, ""),
+        (1234, ""),
+        ({"key": "value"}, ""),
+    ],
+)
+def test_get_mask_card_number_invalid(invalid_input: Any, expected: str) -> None:
+    result = get_mask_card_number(invalid_input)
+    assert result == expected
 
 
 @pytest.mark.parametrize(
     "account_number, expected",
-    [("1234567890", "**7890"), ("9876543210", "**3210"), ("1111222233", "**2233"), ("", "**"), ("1", "**1")],
+    [
+        ("1234567890", "**7890"),
+        ("9876543210", "**3210"),
+        ("1111222233", "**2233"),
+        ("", "**"),
+        ("1", "**1"),
+    ],
 )
-def test_get_mask_account(account_number: str, expected: str) -> None:
+def test_get_mask_account_valid(account_number: str, expected: str) -> None:
     result = get_mask_account(account_number)
     assert result == expected
 
 
-def test_get_mask_account_with_fixture(account_number_data: list) -> None:
-    for account_number, expected in account_number_data:
-        result = get_mask_account(account_number)
-        assert result == expected
+@pytest.mark.parametrize(
+    "invalid_input, expected",
+    [
+        (1234567890, ""),
+        (None, ""),
+        (5678, ""),
+        ({"key": "value"}, ""),
+    ],
+)
+def test_get_mask_account_invalid(invalid_input: Any, expected: str) -> None:
+    result = get_mask_account(invalid_input)
+    assert result == expected

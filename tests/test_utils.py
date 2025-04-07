@@ -14,8 +14,8 @@ def test_read_json_data_success() -> None:
 
 
 @patch("builtins.open", side_effect=Exception("File not found"))
-@patch("builtins.print")  # Правильный target для встроенной функции
-def test_read_json_data_exception(mock_print: Mock, mock_open: Mock) -> None:
+@patch("src.utils.logger.error")
+def test_read_json_data_exception(mock_logger_error: Mock, mock_open: Mock) -> None:
     result = read_json_data("invalid.json")
     assert result == []
-    mock_print.assert_called_once_with("Exception at utils.py: File not found")
+    mock_logger_error.assert_called_once_with("read_json_data: File not found")
