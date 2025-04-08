@@ -1,13 +1,18 @@
 from typing import Iterator
 
 
-def filters_by_currency(transactions: list, currency: str) -> Iterator:
+def filters_by_currency(transactions: list, currency: str, is_json: bool = False) -> Iterator:
     """
     Возвращает итератор, который выдает транзакции, отфильтрованные по заданной валюте.
     """
-    return iter(
-        transaction for transaction in transactions if transaction["operationAmount"]["currency"]["code"] == currency
-    )
+    if is_json:
+        return iter(
+            transaction
+            for transaction in transactions
+            if transaction.get("operationAmount").get("currency").get("code") == currency
+        )
+    else:
+        return iter(transaction for transaction in transactions if transaction.get("currency_code") == currency)
 
 
 def transaction_descriptions(transactions: list) -> Iterator:
