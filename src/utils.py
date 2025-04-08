@@ -1,15 +1,13 @@
 import json
 import logging
-from pathlib import Path
 from typing import Any
 
-filedir = Path.cwd()
 logger = logging.getLogger("utils.py")
 # Основная конфигурация logging
 logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    filename=filedir.parent / "logs/utils.py.log",  # Запись логов в файл
+    filename="logs/utils.py.log",  # Запись логов в файл
     filemode="a",
 )  # Перезапись файла при каждом запуске
 

@@ -12,7 +12,7 @@ from src.generators import card_number_generator, filters_by_currency, transacti
     ],
 )
 def test_filters_by_currency(sample_transactions: list, currency: str, expected_ids: int) -> None:
-    result = list(filters_by_currency(sample_transactions, currency))
+    result = list(filters_by_currency(sample_transactions, currency, True))
     assert [t["id"] for t in result] == expected_ids
 
 
